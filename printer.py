@@ -33,7 +33,7 @@ class Printer:
 
     @property
     def printer_is_color(self):
-        return self.is_color
+        return self._is_color
 
     @printer_is_color.setter
     def printer_is_color(self, new_is_color):
@@ -78,7 +78,7 @@ class Printer:
             print("Not enough paper in the tray!")
 
     def load_paper(self, count):
-        self.paper_count += count
-        if self.paper_count > self.paper_tray_capacity:
-            self.paper_count = self.paper_tray_capacity
+        self.printer_paper_count += count
+        if self.printer_paper_count > self.printer_paper_tray_capacity:
+            self.printer_paper_count = self.printer_paper_tray_capacity
     
