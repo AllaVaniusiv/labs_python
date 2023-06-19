@@ -8,8 +8,6 @@ class Printer(ABC):
     Abstract base class representing a printer.
     """
 
-    default_printer = None
-
     def __init__(self, model='', pr_type='', is_color=False, is_duplex=False,# pylint: disable=too-many-arguments
                  paper_tray_capacity=0, paper_count=0):
         """
@@ -28,6 +26,10 @@ class Printer(ABC):
         self.is_duplex = is_duplex
         self.paper_tray_capacity = paper_tray_capacity
         self.paper_count = paper_count
+        self.paper_sizes_supported = set()
+
+    def __iter__(self):
+        return iter(self.paper_sizes_supported)
 
     def __str__(self):
         """Returns a string that represents the object in a readable format."""
@@ -71,3 +73,14 @@ class Printer(ABC):
         Returns:
             int: The remaining number of pages.
         """
+
+    def get_attributes_by_value_pr_type(self, value_pr_type):
+        """
+        Return a dictionary of attributes and their values that match the specified value type.
+        Args:
+        value_pr_type (type): The type of value to match.
+        Returns:
+        dict: A dictionary of attributes and their values that have the specified value type.
+        """
+        return {attr: value for attr, value in self.__dict__.items()
+                if isinstance(value, value_pr_type)}
