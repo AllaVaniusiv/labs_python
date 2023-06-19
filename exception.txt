@@ -1,0 +1,16 @@
+ERROR:Caught exception: !!!
+Traceback (most recent call last):
+  File "D:\My_labs_python\decorator.py", line 26, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "D:\My_labs_python\models\inkjet_printer.py", line 80, in get_remaining_pages_count
+    raise OutOfPaperException ("!!!")
+exception.OutOfPaperException: !!!
+ERROR:Caught exception: Low paper count!
+Traceback (most recent call last):
+  File "D:\My_labs_python\decorator.py", line 26, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "D:\My_labs_python\models\three_d_printer.py", line 50, in get_remaining_pages_count
+    raise OutOfPaperException("Low paper count!")
+exception.OutOfPaperException: Low paper count!

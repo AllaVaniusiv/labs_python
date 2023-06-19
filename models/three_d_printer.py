@@ -2,6 +2,8 @@
 A class ThreeDPrinter
 """
 from models.printer import Printer
+from decorator import logged
+from exception import OutOfPaperException
 
 class ThreeDPrinter(Printer):
     """
@@ -26,16 +28,17 @@ class ThreeDPrinter(Printer):
 
     def __str__(self):
         """Returns a string that represents the object in a readable format."""
-        return f"LaserPrinter: model={self.model}, pr type={self.pr_type}, color={self.is_color}, \
-duplex={self.is_duplex}, paper tray capacity={self.paper_tray_capacity}, \
+        return f"LaserPrinter: model={self.model}, pr type={self.pr_type}, color={self.is_color},\
+duplex={self.is_duplex}, paper tray capacity={self.paper_tray_capacity},\
 paper count={self.paper_count}, printing_speed={self.printing_speed})"
 
     def __repr__(self):
         """Returns a string that is a valid Python expression for reproducing the object."""
-        return f"LaserPrinter(model={self.model}, pr type={self.pr_type}, color={self.is_color}, \
-duplex={self.is_duplex}, paper tray capacity={self.paper_tray_capacity}, \
+        return f"LaserPrinter(model={self.model}, pr type={self.pr_type}, color={self.is_color},\
+duplex={self.is_duplex}, paper tray capacity={self.paper_tray_capacity},\
 paper count={self.paper_count}, printing_speed={self.printing_speed})"
 
+    @logged(OutOfPaperException, mode="file")
     def get_remaining_pages_count(self):
         """
         Calculate and return the remaining number of pages that can be printed.
@@ -43,4 +46,6 @@ paper count={self.paper_count}, printing_speed={self.printing_speed})"
             int: The remaining number of pages that can be printed.
         """
         remaining_pages = self.paper_count
+        if remaining_pages <= 10:  
+            raise OutOfPaperException("Low paper count!")
         return remaining_pages

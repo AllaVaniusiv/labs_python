@@ -7,6 +7,7 @@ from models.inkjet_printer import InkjetPrinter
 from models.laser_printer import LaserPrinter
 from models.photo_printer import PhotoPrinter
 from models.three_d_printer import ThreeDPrinter
+from exception import OutOfPaperException
 
 manager = PrinterManager()
 manager.add_printer(InkjetPrinter("Hp", "inkjet", False, True, 50, 100, "Type1", 100,
@@ -46,7 +47,15 @@ concatenated_object_and_result = manager.get_concatenated_object_and_result()
 print("\nConcatenated Object and Result:", concatenated_object_and_result)
 
 
-printer = LaserPrinter("Hp", "laser", True, False, 40, 150, 200, 300)
+printer1 = InkjetPrinter("Canon", "inkjet", False, True, 55, 56,
+                        "Type1", 0, "Type2", 0, "Type3", 0, "Type4", 0)
+printer2 = ThreeDPrinter ("Canon", "inkjet", True, True, 65, 5, 250)
+print("\n")
+try:
+    printer1.get_remaining_pages_count()
+    printer2.get_remaining_pages_count()
+except OutOfPaperException as e:
+    print(e)
 attributes = printer.get_attributes_by_value_pr_type(str)
 print("\nList of attributes by value type str:")
 print(attributes)
