@@ -2,6 +2,7 @@
 Main module for managing printers.
 """
 from managers.printer_manager import PrinterManager
+from managers.set_manager import SetManager
 from models.inkjet_printer import InkjetPrinter
 from models.laser_printer import LaserPrinter
 from models.photo_printer import PhotoPrinter
@@ -32,3 +33,42 @@ for printer in printers_with_more_paper_than:
     print(printer)
 
 print("\n")
+
+remaining_pages_count = manager.get_remaining_pages_count_result()
+print("\nRemaining Pages Count:", remaining_pages_count)
+
+concatenated_objects_with_index = manager.get_concatenated_objects_with_index()
+print("\nConcatenated Objects with Index:")
+for item in concatenated_objects_with_index:
+    print(item)
+
+concatenated_object_and_result = manager.get_concatenated_object_and_result()
+print("\nConcatenated Object and Result:", concatenated_object_and_result)
+
+
+printer = LaserPrinter("Hp", "laser", True, False, 40, 150, 200, 300)
+attributes = printer.get_attributes_by_value_pr_type(str)
+print("\nList of attributes by value type str:")
+print(attributes)
+
+def altitude_condition(some_printer):
+    """
+    Check if a printer's paper count is greater than 130.
+    Args:
+    some_printer (Printer): The printer object to check.
+    Returns:
+    bool: True if the printer's paper count is greater than 130, False otherwise.
+    """
+    return some_printer.paper_count > 130
+print("\nCheck condition paper count > 130:")
+result = manager.check_condition(altitude_condition)
+print("All printers satisfy the altitude condition:", result["all"])
+print("At least one printer satisfies the altitude condition:", result["any"])
+
+set_manager = SetManager(manager)
+
+print("\nLength of SetManager:", len(set_manager))
+print("\n")
+print("Items in sets:")
+for item in set_manager:
+    print(item)
